@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(assets/bg-pokemon.jpg) no-repeat center center;
+    background-size: contain;
+    background-color: #ff9801;
+}
+
+/* HEADER */
+
+.header {
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    color: #000000;
+}
+
+input {
+    padding: 2px;
+}
+
+button {
+    padding: 2px;
+    margin: 20px;
+}
+
+img {
+    width: 100%;
+}
+
+/* CARD */
+
+.pokemon-card {
+    padding: 20px;
+    border-radius: .3rem;
+    margin-top: 30px;
+    background: transparent;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: .3rem;
+}
+
+.pokemon-card h2 {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+
+.pokemon-card img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin: 20px 0;
+    border-radius: 100%;
+}
+
+.pokemon-card p {
+    text-align: center;
+    line-height: 2;
+    text-transform: uppercase;
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: 2px;
+}
+
+.error-message {
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    font-family: 'Press Start 2P', cursive;
+}
+
