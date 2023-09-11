@@ -4,9 +4,11 @@ const pokemonCard = document.getElementById("card-container");
 
 searchPokemon.addEventListener("click", () => {
     const pokemonName = pokemonInput.value.toLowerCase();
-    
+
+    updateError();
+
     if (!pokemonName) {
-        showError("Por favor, ingresa un número válido");
+        updateError("Por favor, ingresa un número válido");
         return;
     }
 
@@ -15,32 +17,47 @@ searchPokemon.addEventListener("click", () => {
     fetch(apiUrl) 
         .then(response => {
             if (!response.ok) {
-                showError(`No se pudo encontrar al Pokémon: ${response.statusText}`);
+                updateError(`No se pudo encontrar al Pokémon ${response.statusText}`);
                 throw new Error ("No se encontró al Pokémon");
             }
             return response.json();
         })
         .then(data => {
-            const alturaEnMts = data.height / 10;
-            const pesoEnKg = data.weight / 10;
-
-            data.height = alturaEnMts;
-            data.weight = pesoEnKg;
-
-            renderPokemonCard(data);
+            if (data.id <= 0) {
+                updateError("No se pudo encontrar al Pokémon");
+            } else {
+                const alturaEnMts = data.height / 10;
+                const pesoEnKg = data.weight / 10;
+    
+                data.height = alturaEnMts;
+                data.weight = pesoEnKg;
+    
+                renderPokemonCard(data);
+            }
         })
         .catch(error => {
             console.log(error);
         })
 });
 
-function showError(errorMessage) {
-    const errorElement = document.getElementById("pokemonCard");
-    errorElement.innerHTML = errorMessage;
-    errorElement.classList.add("error-message");
-};
+function updateError(errorMessage = null) {
+    const errorElement = document.getElementById("cardError");
+    const cardContainer = document.getElementById("card-container");
+
+    if (errorMessage) {
+        errorElement.innerHTML = errorMessage;
+        errorElement.classList.add("error-message");
+        cardContainer.innerHTML = "";
+    } else {
+        errorElement.innerHTML = "";
+        errorElement.classList.remove("error-message");
+    }
+}
 
 function renderPokemonCard(pokemonData) {
+    const cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = "";
+
     const card = document.createElement("div");
     card.classList.add("pokemon-card");
 
@@ -51,8 +68,5 @@ function renderPokemonCard(pokemonData) {
         <p>Peso: ${pokemonData.weight} kilogramos</p>
         <p>Tipo(s): ${pokemonData.types.map(type => type.type.name).join(", ")}</p>  
     `;
-    pokemonCard.innerHTML = "";
-    pokemonCard.classList.remove("error-message");
-    pokemonCard.appendChild(card);
+    cardContainer.appendChild(card);
 };
-
